@@ -1,6 +1,8 @@
 import styled from "styled-components";
 export const Container = styled.div``;
-export const MainWrapper = styled.div``;
+export const MainWrapper = styled.div`
+     width: 300px;
+`;
 export const Lists = styled.div``;
 export const List = styled.div`
      border: 1px solid black;

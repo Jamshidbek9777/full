@@ -16,6 +16,7 @@ import CreateCategory from "./components/AdminPages/CreateCategory";
 import CreateProducts from "./components/AdminPages/CreateProducts";
 import CreateUsers from "./components/AdminPages/CreateUsers";
 import MainPage from "./components/Admin/MainPage";
+import Products from "./components/AdminPages/Products";
 class App extends Component {
      render() {
           return (
@@ -42,6 +43,10 @@ class App extends Component {
                               <Route
                                    path="admin/create-users"
                                    element={<CreateUsers />}
+                              />
+                              <Route
+                                   path="admin/products"
+                                   element={<Products />}
                               />
                          </Route>
                          <Route path="/dashboard" element={<PrivateRoute />}>

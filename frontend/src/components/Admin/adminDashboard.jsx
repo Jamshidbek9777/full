@@ -22,9 +22,9 @@ export const AdminDashboard = () => {
                          </List>
                          <List
                               onClick={() =>
-                                   navigate("/dashboard/admin/create-users")
+                                   navigate("/dashboard/admin/products")
                               }>
-                              Create Users
+                              Products
                          </List>
                     </Lists>
                </MainWrapper>
