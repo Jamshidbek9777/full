@@ -28,7 +28,6 @@ export const Products = () => {
      return (
           <MainContent>
                <MainWrapper>
-                    <AdminDashboard />
                     <Content className="col-md-9">
                          <h1 className="text-center">All products list</h1>
 

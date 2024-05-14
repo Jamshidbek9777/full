@@ -27,7 +27,7 @@ export const Login = () => {
                          }),
                     }
                );
-               const data = await res.json(); // Parse response JSON
+               const data = await res.json(); 
                if (data.success) {
                     message.success(data.message);
                     setAuth({

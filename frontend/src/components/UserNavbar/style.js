@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-     min-height: 100vh;
+     box-shadow: 0 8px 6px -6px gray;
+     -webkit-box-shadow: 0 8px 6px -6px gray;
+     border-bottom: 0.5px solid gray !important;
 `;
 export const Wrapper = styled.div`
      display: flex;

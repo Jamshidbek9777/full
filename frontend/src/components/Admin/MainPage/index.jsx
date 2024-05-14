@@ -6,7 +6,6 @@ import { MainContent } from "./style";
 export const MainPage = () => {
      return (
           <MainContent>
-               <AdminDashboard />
                <AdminInfo />
           </MainContent>
      );

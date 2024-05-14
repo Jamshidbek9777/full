@@ -139,7 +139,6 @@ export const CreateCategory = () => {
      return (
           <MainContent>
                <MainWrapper>
-                    <AdminDashboard />
                     <Content>
                          <h1>Manage Categories</h1>
                          <div>

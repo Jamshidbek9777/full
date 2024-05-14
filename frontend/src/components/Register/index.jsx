@@ -9,7 +9,6 @@ const Register = () => {
      const [phone, setPhone] = useState("");
      const [address, setAddress] = useState("");
      const navigate = useNavigate();
-     // form function
      const handleSubmit = async (e) => {
           e.preventDefault();
           try {
@@ -28,7 +27,7 @@ const Register = () => {
                          }),
                     }
                );
-               const data = await res.json(); // Parse response JSON
+               const data = await res.json();
                if (data.success) {
                     message.success(data.message);
                     navigate("/login");

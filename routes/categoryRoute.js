@@ -11,15 +11,10 @@ const router = express.Router();
 
 //routes
 //create-category
-router.post(
-     "/create-category",
-     requireSignIn,
-     isAdmin,
-     createCategoryController
-);
+router.post("/create-category", createCategoryController);
 
 //update category
-router.put("/update-category/:id", requireSignIn, isAdmin, UpdateCategory);
+router.put("/update-category/:id", UpdateCategory);
 
 //getAllCategory
 router.get("/get-categories", getAllCategory);

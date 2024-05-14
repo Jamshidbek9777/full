@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import About from "./components/About";
@@ -14,54 +14,59 @@ import AdminDashboard from "./components/Admin/adminDashboard";
 import AdminRoute from "./components/Routes/adminRoute";
 import CreateCategory from "./components/AdminPages/CreateCategory";
 import CreateProducts from "./components/AdminPages/CreateProducts";
-import CreateUsers from "./components/AdminPages/CreateUsers";
 import MainPage from "./components/Admin/MainPage";
 import Products from "./components/AdminPages/Products";
+import UserNavbar from "./components/UserNavbar";
+import { useAuth } from "./components/context/auth";
+
 class App extends Component {
      render() {
           return (
                <div className="App">
-                    {/* <BrowserRouter> */}
-                    <Navbar />
+                    <UserNavbar />
                     <Routes>
-                         <Route path="/" element={<Home />} />
                          <Route
                               path="*"
                               element={<h1>This page is not found</h1>}
                          />
-                         <Route path="/contact" element={<Contact />} />{" "}
-                         <Route path="/dashboard" element={<AdminRoute />}>
-                              <Route path="admin" element={<MainPage />} />
-                              <Route
-                                   path="admin/create-category"
-                                   element={<CreateCategory />}
-                              />
-                              <Route
-                                   path="admin/create-product"
-                                   element={<CreateProducts />}
-                              />{" "}
-                              <Route
-                                   path="admin/create-users"
-                                   element={<CreateUsers />}
-                              />
-                              <Route
-                                   path="admin/products"
-                                   element={<Products />}
-                              />
+
+                         <Route path="/" element={<Home />} />
+
+                         <Route
+                              path="/adminpage"
+                              element={<ConditionalNavbar />}>
+                              <Route path="dashboard" element={<AdminRoute />}>
+                                   <Route path="admin" element={<MainPage />} />
+                                   <Route
+                                        path="admin/create-category"
+                                        element={<CreateCategory />}
+                                   />
+                                   <Route
+                                        path="admin/create-product"
+                                        element={<CreateProducts />}
+                                   />
+                              </Route>
                          </Route>
-                         <Route path="/dashboard" element={<PrivateRoute />}>
-                              <Route path="user" element={<Dashboard />} />
-                         </Route>
-                         <Route path="/about" element={<About />} />
-                         <Route path="/category" element={<Category />} />
-                         <Route path="/register" element={<Register />} />
+
                          <Route path="/login" element={<Login />} />
+                         <Route path="/category" element={<Category />} />
+                         <Route path="/about" element={<About />} />
+                         <Route path="/register" element={<Register />} />
                          <Route path="/cart" element={<Cart />} />
                     </Routes>
-                    {/* </BrowserRouter> */}
                </div>
           );
      }
+}
+
+function ConditionalNavbar() {
+     const [auth] = useAuth();
+
+     // Check if the user is an admin
+     const isAdmin = auth.role === "1";
+
+     // Render Navbar conditionally based on the user's role
+     return isAdmin ? null : <Navbar />;
 }
 
 export default App;

@@ -83,7 +83,6 @@ export const CreateProducts = () => {
      return (
           <MainContent>
                <MainWrapper>
-                    <AdminDashboard />
                     <Content>
                          <h1>Manage Products</h1>
                          <SelectWrapper>

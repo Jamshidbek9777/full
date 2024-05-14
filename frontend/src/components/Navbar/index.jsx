@@ -1,12 +1,33 @@
-import React from "react";
-import { Container, RightSide, Wrapper } from "./navbarStyle";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import { message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 
+//icons import
+import { AiOutlineDashboard } from "react-icons/ai";
+import { TbCategory } from "react-icons/tb";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+
+import {
+     MenuFoldOutlined,
+     MenuUnfoldOutlined,
+     UploadOutlined,
+     UserOutlined,
+     VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu, Button, theme } from "antd";
+const { Header, Sider, Content } = Layout;
 export const Navbar = () => {
+     //antd
+     const [collapsed, setCollapsed] = useState(false);
+     const {
+          token: { colorBgContainer, borderRadiusLG },
+     } = theme.useToken();
+
+     //
      const navigate = useNavigate();
 
      const handleLogout = () => {
@@ -45,49 +66,83 @@ export const Navbar = () => {
      const [auth, setAuth] = useAuth();
 
      return (
-          <Container>
-               <Wrapper>
-                    <div>
-                         <h1 onClick={() => navigate("/")}>Ecommerce app</h1>
-                    </div>
-                    <RightSide>
-                         <h4 onClick={() => navigate("/")}>Home</h4>
-                         <h4 onClick={() => navigate("/category")}>Category</h4>
-                         {!auth.user ? (
-                              <div>
-                                   <h4 onClick={() => navigate("/register")}>
-                                        Register{" "}
-                                   </h4>
-                                   <h4 onClick={() => navigate("/login")}>
-                                        Login
-                                   </h4>
-                              </div>
-                         ) : (
-                              <div>
-                                   <h4>
-                                        <Dropdown
-                                             menu={{
-                                                  items,
-                                             }}>
-                                             <a
-                                                  onClick={(e) =>
-                                                       e.preventDefault()
-                                                  }>
-                                                  <Space>
-                                                       {auth.user.name}
-                                                       <DownOutlined
-                                                            size={60}
-                                                       />
-                                                  </Space>
-                                             </a>
-                                        </Dropdown>
-                                   </h4>
-                              </div>
-                         )}
-                         <h4 onClick={() => navigate("/cart")}>Cart</h4>
-                    </RightSide>
-               </Wrapper>
-          </Container>
+          <Layout>
+               <Sider trigger={null} collapsible collapsed={collapsed}>
+                    <div className="demo-logo-vertical" />
+                    <Menu
+                         theme="dark"
+                         mode="inline"
+                         defaultSelectedKeys={["1"]}
+                         onClick={({ key }) => {
+                              if (key == "1") {
+                                   navigate("/adminpage/dashboard");
+                              }
+                              if (key == "2") {
+                                   navigate(
+                                        "/adminpage/dashboard/admin/create-category"
+                                   );
+                              }
+                              if (key == "3") {
+                                   navigate(
+                                        "/adminpage/dashboard/admin/create-product"
+                                   );
+                              }
+                         }}
+                         items={[
+                              {
+                                   key: "1",
+                                   icon: <AiOutlineDashboard />,
+                                   label: "Dashboard",
+                              },
+                              {
+                                   key: "2",
+                                   icon: <TbCategory />,
+                                   label: "Categories",
+                              },
+                              {
+                                   key: "3",
+
+                                   icon: <MdOutlineProductionQuantityLimits />,
+                                   label: "Products",
+                              },
+                         ]}
+                    />
+               </Sider>
+               <Layout>
+                    <Header
+                         style={{
+                              padding: 0,
+                              background: colorBgContainer,
+                         }}>
+                         <Button
+                              type="text"
+                              icon={
+                                   collapsed ? (
+                                        <MenuUnfoldOutlined />
+                                   ) : (
+                                        <MenuFoldOutlined />
+                                   )
+                              }
+                              onClick={() => setCollapsed(!collapsed)}
+                              style={{
+                                   fontSize: "16px",
+                                   width: 64,
+                                   height: 64,
+                              }}
+                         />
+                    </Header>
+                    <Content
+                         style={{
+                              margin: "24px 16px",
+                              padding: 24,
+                              minHeight: 280,
+                              background: colorBgContainer,
+                              borderRadius: borderRadiusLG,
+                         }}>
+                         <Outlet />
+                    </Content>
+               </Layout>
+          </Layout>
      );
 };
 export default Navbar;
